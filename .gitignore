@@ -1,0 +1,11 @@
+!sample/
+*.pyc
+__pycache__
+.DS_Store
+.env
+log/
+working/
+*.png
+*.h5
+.ipynb_checkpoints/
+.idea/
