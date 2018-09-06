@@ -12,4 +12,4 @@ pytz = "*"
 dateparser = "*"
 
 [scripts]
-hello = "python src/project_template/run.py hello"
+hello = "python src/tv_info/run.py hello"

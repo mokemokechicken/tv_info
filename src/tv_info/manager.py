@@ -44,7 +44,7 @@ def start():
     logger.info(args)
 
     if hasattr(args, "command"):
-        m = importlib.import_module(f'project_template.command.{args.command}')
+        m = importlib.import_module(f'tv_info.command.{args.command}')
         m.start(config)
     else:
         parser.print_help()

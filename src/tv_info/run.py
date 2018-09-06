@@ -13,5 +13,5 @@ if _PATH_ not in sys.path:
 
 
 if __name__ == "__main__":
-    from project_template import manager
+    from tv_info import manager
     manager.start()
