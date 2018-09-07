@@ -1,6 +1,7 @@
 import re
 from collections import namedtuple
 from copy import copy
+from dataclasses import dataclass
 from logging import getLogger
 from os.path import exists
 from time import sleep
@@ -17,9 +18,6 @@ from tv_info.lib.mecab_parser import MecabParser
 from tv_info.lib.web_browser import WebBrowser
 
 logger = getLogger(__name__)
-
-TopLinkInfo = namedtuple("TopLinkInfo", 'day url')
-ProgramURLInfo = namedtuple("ProgramURLInfo", "day url")
 
 
 class YahooTVCrawler:
@@ -66,14 +64,14 @@ class YahooTVCrawler:
 
         self.collect_program_details(driver, program_urls)
 
-    def collect_program_details(self, driver: webdriver.Chrome, program_urls: List[ProgramURLInfo]):
+    def collect_program_details(self, driver: webdriver.Chrome, program_urls: List[dict]):
         detail_info = self.load_program_detail()
         date_regex = re.compile("年.+月.+日")
         for ui in program_urls:
-            if ui.url in detail_info:
+            if ui["url"] in detail_info:
                 continue
-            logger.debug(f"fetching {ui.url}")
-            driver.get(ui.url)
+            logger.debug(f"fetching {ui['url']}")
+            driver.get(ui['url'])
             sleep(1)
             # $("div#main h2 b")
             # $("div#main h3 ~ p")
@@ -94,11 +92,11 @@ class YahooTVCrawler:
             logger.debug(text_set)
             keywords = self.extract_keywords(text_set)
             pg_info = {
-                "date": ui.day,
+                "day": ui['day'],
                 "texts": list(text_set),
                 "keywords": keywords,
             }
-            detail_info[ui.url] = pg_info
+            detail_info[ui['url']] = pg_info
             save_json_to_file(self.config.resource.tv_program_detail_path, detail_info)
 
     def extract_keywords(self, text_set: Iterable[str]) -> List[str]:
@@ -140,22 +138,22 @@ class YahooTVCrawler:
             s = copy(first_link_sample)
             link = f"{s.scheme}://{s.netloc}{s.path}?{urlencode(qs)}"
             logger.debug(f"List URL: {link}")
-            links.append(TopLinkInfo(day, link))
+            links.append(dict(day=day, url=link))
 
         return links
 
     @staticmethod
-    def collect_program_urls(driver: webdriver.Chrome, links: List[TopLinkInfo]):
+    def collect_program_urls(driver: webdriver.Chrome, links: List[dict]):
         logger.info("collect_program_urls")
         program_urls = set()
         for li in links:
-            driver.get(li.url)
+            driver.get(li['url'])
             sleep(1)
             for elem in driver.find_elements_by_tag_name("a"):
                 link = elem.get_attribute("href")
                 if link and '//tv.yahoo.co.jp/program/' in link:
                     link = link.split("?")[0]
-                    program_urls.add(ProgramURLInfo(li.day, link))
+                    program_urls.add(dict(day=li["day"], url=link))
                     logger.debug(f"Program URL: {link}")
         return list(sorted(program_urls))
 
@@ -170,5 +168,3 @@ class YahooTVCrawler:
             return load_json_from_file(self.config.resource.tv_program_detail_path)
         else:
             return {}
-
-
