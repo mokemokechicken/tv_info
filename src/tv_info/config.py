@@ -67,6 +67,7 @@ class ResourceConfig(ConfigBase):
 class DataConfig(ConfigBase):
     def __init__(self):
         self.top_url_list = None
+        self.omit_words = []
 
 
 class BrowserConfig(ConfigBase):

@@ -1,3 +1,6 @@
 data:
   top_url_list:
     - https://tv.yahoo.co.jp/listings/23/  # 地上波
+
+  omit_words:
+    - ありません
