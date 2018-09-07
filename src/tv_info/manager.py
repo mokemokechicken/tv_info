@@ -1,6 +1,7 @@
 import argparse
 from logging import getLogger
 import importlib
+from os.path import dirname
 
 from moke_config import create_config
 
@@ -9,6 +10,7 @@ from .config import Config
 from .lib.logger import setup_logger
 
 logger = getLogger(__name__)
+ROOT_PATH = dirname(dirname(dirname(__file__)))
 
 
 def create_parser():
@@ -22,6 +24,10 @@ def create_parser():
 
     sub_parser = sub.add_parser("hello")
     sub_parser.set_defaults(command='hello')
+    add_common_options(sub_parser)
+
+    sub_parser = sub.add_parser("crawl")
+    sub_parser.set_defaults(command='crawl')
     add_common_options(sub_parser)
     return parser
 
@@ -38,7 +44,7 @@ def start():
     if args.config:
         config_dict = load_yaml_from_file(args.config)
     else:
-        config_dict = {}
+        config_dict = load_yaml_from_file(f"{ROOT_PATH}/config/config.yml")
     config = create_config(Config, config_dict)  # type: Config
     setup(config, args)
     logger.info(args)

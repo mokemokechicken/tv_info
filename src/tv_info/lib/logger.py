@@ -7,7 +7,7 @@ def setup_logger(log_filename, level):
     basicConfig(filename=log_filename, level=level, format=format_str)
     stream_handler = StreamHandler()
     stream_handler.setFormatter(Formatter(format_str))
-    getLogger().addHandler(stream_handler)
+    getLogger("tv_info").addHandler(stream_handler)
 
 
 def get_log_level(level: str):

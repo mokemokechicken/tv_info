@@ -10,6 +10,9 @@ moke-config = "*"
 python-dateutil = "*"
 pytz = "*"
 dateparser = "*"
+"beautifulsoup4" = "*"
+selenium = "*"
+"mecab-python3" = "*"
 
 [scripts]
 hello = "python src/tv_info/run.py hello"

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "540ce6341699acf54cb587c31737d14dea7f51fa000e9a07a5851e98af806555"
+            "sha256": "985063e8c9aa045d12d1ba6307f02295ec4f0b9015a479e8600de0f9948f9983"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -14,6 +14,15 @@
         ]
     },
     "default": {
+        "beautifulsoup4": {
+            "hashes": [
+                "sha256:194ec62a25438adcb3fdb06378b26559eda1ea8a747367d34c33cef9c7f48d57",
+                "sha256:90f8e61121d6ae58362ce3bed8cd997efb00c914eae0ff3d363c32f9a9822d10",
+                "sha256:f0abd31228055d698bb392a826528ea08ebb9959e6bea17c606fd9c9009db938"
+            ],
+            "index": "pypi",
+            "version": "==4.6.3"
+        },
         "dateparser": {
             "hashes": [
                 "sha256:940828183c937bcec530753211b70f673c0a9aab831e43273489b310538dff86",
@@ -21,6 +30,13 @@
             ],
             "index": "pypi",
             "version": "==0.7.0"
+        },
+        "mecab-python3": {
+            "hashes": [
+                "sha256:1e1b8a34ac63686dcaac19d8eaa2e0c265b679379d10c60ef5c22f571c79ed00"
+            ],
+            "index": "pypi",
+            "version": "==0.7"
         },
         "moke-config": {
             "hashes": [
@@ -90,6 +106,14 @@
             ],
             "version": "==2018.8.29"
         },
+        "selenium": {
+            "hashes": [
+                "sha256:c53d13a2627d835fee3d1d6291214c62196dfeb6f5f35572bacf31ac60c030c0",
+                "sha256:f9ca21919b564a0a86012cd2177923e3a7f37c4a574207086e710192452a7c40"
+            ],
+            "index": "pypi",
+            "version": "==3.14.0"
+        },
         "six": {
             "hashes": [
                 "sha256:70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9",
@@ -102,6 +126,14 @@
                 "sha256:4ebeb848845ac898da6519b9b31879cf13b6626f7184c496037b818e238f2c4e"
             ],
             "version": "==1.5.1"
+        },
+        "urllib3": {
+            "hashes": [
+                "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
+                "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
+            ],
+            "markers": "python_version != '3.0.*' and python_version != '3.2.*' and python_version < '4' and python_version >= '2.6' and python_version != '3.1.*' and python_version != '3.3.*'",
+            "version": "==1.23"
         }
     },
     "develop": {}
