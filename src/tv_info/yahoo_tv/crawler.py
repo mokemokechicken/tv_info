@@ -1,7 +1,5 @@
 import re
-from collections import namedtuple
 from copy import copy
-from dataclasses import dataclass
 from logging import getLogger
 from os.path import exists
 from time import sleep
@@ -28,7 +26,10 @@ class YahooTVCrawler:
 
     def start(self):
         # self.bs = soup = BeautifulSoup(html, "html.parser")
-        self.parser = MecabParser(self.config.resource.mecab_dict_path)
+        try:
+            self.parser = MecabParser(self.config.resource.mecab_dict_path)
+        except:
+            pass
         for top_url in self.config.data.top_url_list:
             with WebBrowser() as driver:
                 self.start_crawl(driver, top_url)
@@ -105,6 +106,9 @@ class YahooTVCrawler:
                 add_num = 0
 
     def extract_keywords(self, text_set: Iterable[str]) -> List[str]:
+        if not self.parser:
+            return []
+
         keywords = set()
         for text in text_set:
             words = self.parser.parse(text)
