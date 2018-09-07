@@ -53,9 +53,9 @@ class YahooTVCrawler:
         list_info = self.load_program_list()
         if top_url not in list_info:
             driver.get(top_url)
-            sleep(3)
+            sleep(1)
             links = self.find_and_make_daily_program_list_link(driver, top_url)
-            program_urls = self.collect_program_urls(driver, links[:1])
+            program_urls = self.collect_program_urls(driver, links)
             list_info[top_url] = program_urls
             save_json_to_file(self.config.resource.tv_program_list_path, list_info)
         else:
@@ -145,7 +145,7 @@ class YahooTVCrawler:
     @staticmethod
     def collect_program_urls(driver: webdriver.Chrome, links: List[dict]):
         logger.info("collect_program_urls")
-        program_urls = set()
+        program_urls = {}
         for li in links:
             driver.get(li['url'])
             sleep(1)
@@ -153,9 +153,9 @@ class YahooTVCrawler:
                 link = elem.get_attribute("href")
                 if link and '//tv.yahoo.co.jp/program/' in link:
                     link = link.split("?")[0]
-                    program_urls.add(dict(day=li["day"], url=link))
+                    program_urls[link] = dict(day=li["day"], url=link)
                     logger.debug(f"Program URL: {link}")
-        return list(sorted(program_urls))
+        return list(program_urls.values())
 
     def load_program_list(self):
         if exists(self.config.resource.tv_program_list_path):
