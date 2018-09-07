@@ -67,6 +67,7 @@ class YahooTVCrawler:
     def collect_program_details(self, driver: webdriver.Chrome, program_urls: List[dict]):
         detail_info = self.load_program_detail()
         date_regex = re.compile("年.+月.+日")
+        add_num = 0
         for ui in program_urls:
             if ui["url"] in detail_info:
                 continue
@@ -97,7 +98,11 @@ class YahooTVCrawler:
                 "keywords": keywords,
             }
             detail_info[ui['url']] = pg_info
-            save_json_to_file(self.config.resource.tv_program_detail_path, detail_info)
+
+            add_num += 1
+            if add_num >= 10:
+                save_json_to_file(self.config.resource.tv_program_detail_path, detail_info)
+                add_num = 0
 
     def extract_keywords(self, text_set: Iterable[str]) -> List[str]:
         keywords = set()

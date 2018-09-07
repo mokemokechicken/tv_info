@@ -1,7 +1,7 @@
 import argparse
 from logging import getLogger
 import importlib
-from os.path import dirname
+from os.path import dirname, abspath
 
 from moke_config import create_config
 
@@ -10,7 +10,7 @@ from .config import Config
 from .lib.logger import setup_logger
 
 logger = getLogger(__name__)
-ROOT_PATH = dirname(dirname(dirname(__file__)))
+ROOT_PATH = dirname(dirname(dirname(abspath(__file__))))
 
 
 def create_parser():

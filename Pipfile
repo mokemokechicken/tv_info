@@ -15,4 +15,4 @@ selenium = "*"
 "mecab-python3" = "*"
 
 [scripts]
-hello = "python src/tv_info/run.py hello"
+crawl = "python src/tv_info/run.py crawl"
